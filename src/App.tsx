@@ -25,15 +25,22 @@ const App: FunctionComponent = () => {
 	return (
 		<div className='p-2'>
 			<header className='p-2'>
-				<h1 className='text-3xl font-bold underline'>Github Commit Feed</h1>
+				<h1 className='text-3xl font-bold'>Github Commit Feed</h1>
 			</header>
-			<div className='container'>
+			<div className='container flex flex-col items-center'>
+				{/* TODO: make the repo source dynamic,
+				add a search repo function to reload other repos */}
+				<h3 className='text-xl p-2'>Showing results for m3db/m3</h3>
 				{allCommitData.length > 0 ? (
 					allCommitData.slice(0, visibleCommits).map((item, index) => (
-						<div className='p-2' key={index}>
-							<p className='text-sm'>{item.author.date}</p>
+						<div
+							className='rounded-md border p-2 m-2 flex flex-row w-5/6 justify-between'
+							key={index}
+						>
+							{/* TODO: formate date to be legible */}
+							<p className='text-sm pr-4'>{item.author.date}</p>
 							<a
-								className='text-sm text-ellipsis hover:underline'
+								className='text-sm truncate hover:underline'
 								href={item.html_url}
 								rel='noreferrer'
 								target='_blank'
@@ -41,7 +48,7 @@ const App: FunctionComponent = () => {
 								{item.message}
 							</a>
 							<a
-								className='text-sm hover:underline'
+								className='text-sm hover:underline px-1'
 								href={`mailto:${item.author.email}`}
 							>
 								{item.author.name}
@@ -54,7 +61,7 @@ const App: FunctionComponent = () => {
 				{allCommitData.length === visibleCommits ? null : (
 					<button
 						onClick={showMoreCommits}
-						className='rounded-lg p-2 m-4 bg-blue-500 active:bg-blue-600 hover:bg-blue-400'
+						className='rounded-md p-2 m-4 text-white bg-blue-500 active:bg-blue-600 hover:bg-blue-400'
 					>
 						Load More
 					</button>
