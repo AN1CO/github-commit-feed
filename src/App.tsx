@@ -38,7 +38,9 @@ const App: FunctionComponent = () => {
 							key={index}
 						>
 							{/* TODO: formate date to be legible */}
-							<p className='text-sm pr-4'>{item.author.date}</p>
+							<p className='text-sm mr-4'>
+								{item.author.date.toLocaleString()}
+							</p>
 							<a
 								className='text-sm truncate hover:underline'
 								href={item.html_url}
@@ -48,7 +50,7 @@ const App: FunctionComponent = () => {
 								{item.message}
 							</a>
 							<a
-								className='text-sm hover:underline px-1'
+								className='text-sm hover:underline ml-4'
 								href={`mailto:${item.author.email}`}
 							>
 								{item.author.name}
