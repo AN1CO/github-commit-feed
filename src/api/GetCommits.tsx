@@ -4,10 +4,17 @@ axios.defaults.headers.common['Authorization'] =
 	process.env.REACT_APP_API_TOKEN;
 
 export interface CommitProps {
-	date: string;
-	author: string;
+	author: {
+		name: string;
+		email: string;
+		date: string;
+	};
 	message: string;
-	commit_url: string;
+	url: string;
+}
+
+export interface OriginalCommitDataProps {
+	commit: CommitProps;
 }
 export const fetchCommits = async () => {
 	try {
