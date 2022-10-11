@@ -1,10 +1,12 @@
-import React, { FunctionComponent, useEffect } from 'react';
-import fetchCommits from './api/GetCommits';
+import React, { FunctionComponent, useEffect, useState } from 'react';
+import { fetchCommits, CommitProps } from './api/GetCommits';
 
 const App: FunctionComponent = () => {
+	const [allCommitData, setAllCommitData] = useState<CommitProps[]>([]);
 	useEffect(() => {
 		fetchCommits().then((res) => {
 			console.log(res);
+			res.map((item: CommitProps) => {});
 		});
 
 		// return () => {
