@@ -1,11 +1,15 @@
+import { render } from '@testing-library/react';
 import React, { FunctionComponent, useEffect, useState } from 'react';
 import {
 	fetchCommits,
 	CommitProps,
 	OriginalCommitDataProps,
-} from './api/GetCommits';
+} from '../../api/fetchCommits';
+import { useParams } from 'react-router-dom';
 
-const App: FunctionComponent = () => {
+interface DisplayCommitsProps {}
+
+const DisplayCommits: FunctionComponent = () => {
 	const [allCommitData, setAllCommitData] = useState<CommitProps[]>([]);
 	const [visibleCommits, setVisibleCommits] = useState(5);
 
@@ -13,14 +17,14 @@ const App: FunctionComponent = () => {
 		setVisibleCommits((prevValue) => prevValue + 5);
 	};
 
-	useEffect(() => {
-		fetchCommits().then((res) => {
-			console.log(res);
-			res.map((item: OriginalCommitDataProps) => {
-				setAllCommitData((prev) => [...prev, item.commit]);
-			});
-		});
-	}, []);
+	// useEffect(() => {
+	// 	fetchCommits().then((res) => {
+	// 		console.log(res);
+	// 		res.map((item: OriginalCommitDataProps) => {
+	// 			setAllCommitData((prev) => [...prev, item.commit]);
+	// 		});
+	// 	});
+	// }, []);
 
 	return (
 		<div className='p-2'>
@@ -73,4 +77,4 @@ const App: FunctionComponent = () => {
 	);
 };
 
-export default App;
+export default DisplayCommits;

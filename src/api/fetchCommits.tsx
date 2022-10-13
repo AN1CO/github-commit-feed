@@ -16,9 +16,11 @@ export interface CommitProps {
 export interface OriginalCommitDataProps {
 	commit: CommitProps;
 }
-export const fetchCommits = async () => {
+
+export const fetchCommits = async (user: string, repo: string) => {
+	// example: m3db/m3
 	try {
-		const res = await axios.get('/repos/m3db/m3/commits');
+		const res = await axios.get(`/repos/${user}/${repo}/commits`);
 		return res.data;
 	} catch (err: any) {
 		throw err.response.data;
