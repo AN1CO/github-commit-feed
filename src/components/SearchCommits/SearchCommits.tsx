@@ -10,21 +10,22 @@ const SearchCommits: FunctionComponent = () => {
 	const [repoSearchValue, setRepoSearchValue] = useState('');
 	const [disableSubmit, setDisableSubmit] = useState(true);
 
+	const handleSubmit = () => {};
+
 	useEffect(() => {
 		// return () => {
 		// 	second;
 		// };
 	}, []);
 
-	const handleSubmit = () => {};
-
 	return (
 		<>
-			<div>
-				<h2>Search Commits</h2>
+			<div className='container flex flex-col items-center'>
+				<h3 className='text-xl p-2'>Search Commits</h3>
 				<form>
 					<label htmlFor='user'>User: </label>
 					<input
+						className='border-2 m-2 p-2 rounded-md'
 						name='use'
 						id='use'
 						type='text'
@@ -38,6 +39,7 @@ const SearchCommits: FunctionComponent = () => {
 					<label htmlFor='repo'>Repo: </label>
 
 					<input
+						className='border-2 m-2 p-2 rounded-md'
 						name='repo'
 						id='repo'
 						type='text'
@@ -48,7 +50,11 @@ const SearchCommits: FunctionComponent = () => {
 						}}
 						required
 					></input>
-					<button type='submit' disabled={disableSubmit}>
+					<button
+						className='border-2 m-2 p-2 rounded-md text-white bg-blue-500 active:bg-blue-600 hover:bg-blue-400 disabled:bg-slate-300 disabled:border-slate-300 disabled:text-slate-400'
+						type='submit'
+						disabled={disableSubmit}
+					>
 						Submit
 					</button>
 				</form>
