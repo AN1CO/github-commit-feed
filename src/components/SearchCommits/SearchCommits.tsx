@@ -46,7 +46,7 @@ const SearchCommits: FunctionComponent = () => {
 						required
 					></input>
 					<button
-						className='border-2 m-2 p-2 rounded-md text-white bg-blue-500 active:bg-blue-600 hover:bg-blue-400 disabled:bg-slate-300 disabled:border-slate-300 disabled:text-slate-400 disabled:cursor-not-allowed'
+						className='border-2 m-2 p-2 rounded-md text-white border-blue-500 bg-blue-500 active:bg-blue-600 active:border-blue-600 hover:bg-blue-400 hover:border-blue-400 disabled:bg-slate-300 disabled:border-slate-300 disabled:text-slate-400 disabled:cursor-not-allowed'
 						disabled={!isValid()}
 						onClick={searchCommits}
 					>

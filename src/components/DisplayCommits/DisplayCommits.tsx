@@ -62,6 +62,7 @@ const DisplayCommits: FunctionComponent<any> = () => {
 						<div
 							className='rounded-md border p-2 m-2 flex flex-row w-5/6 justify-between'
 							key={index}
+							data-testid='commit-element'
 						>
 							{/* TODO: format date to be legible */}
 							<p className='text-sm mr-4'>

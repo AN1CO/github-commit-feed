@@ -1,20 +1,21 @@
 import React from 'react';
-import { render, screen } from '@testing-library/react';
-import App from './App';
+import { render, screen, waitFor, cleanup } from '@testing-library/react';
+import DisplayCommits from './DisplayCommits';
+import axiosMock from 'axios';
 
-describe('Commit List App', () => {
+describe('Display Commits', () => {
 	test('renders initial list of 5 commits', () => {
-		render(<App />);
-		// const linkElement = screen.getByText(/learn react/i);
-		// expect(linkElement).toBeInTheDocument();
+		render(<DisplayCommits />);
+		const element = screen.getByTestId(/commit-element/i);
+		expect(element).toBeInTheDocument();
 	});
 	test('clicking Load More button loads more commits', () => {
-		render(<App />);
+		render(<DisplayCommits />);
 		// const linkElement = screen.getByText(/learn react/i);
 		// expect(linkElement).toBeInTheDocument();
 	});
 	test('when max number of commits are displayed, Load More button disappears', () => {
-		render(<App />);
+		render(<DisplayCommits />);
 		// const linkElement = screen.getByText(/learn react/i);
 		// expect(linkElement).toBeInTheDocument();
 	});
