@@ -1,22 +1,20 @@
-import React, { FunctionComponent, useEffect, useState } from 'react';
-import {
-	fetchCommits,
-	CommitProps,
-	OriginalCommitDataProps,
-} from '../../api/fetchCommits';
+import { FunctionComponent, useState } from 'react';
+import { useHistory } from 'react-router-dom';
 
 const SearchCommits: FunctionComponent = () => {
+	const history = useHistory();
 	const [userSearchValue, setUserSearchValue] = useState('');
 	const [repoSearchValue, setRepoSearchValue] = useState('');
-	const [disableSubmit, setDisableSubmit] = useState(true);
 
-	const handleSubmit = () => {};
+	const isValid = () => {
+		return (
+			userSearchValue.trim().length !== 0 && repoSearchValue.trim().length !== 0
+		);
+	};
 
-	useEffect(() => {
-		// return () => {
-		// 	second;
-		// };
-	}, []);
+	const searchCommits = () => {
+		history.push(`${userSearchValue}/${repoSearchValue}`);
+	};
 
 	return (
 		<>
@@ -51,9 +49,10 @@ const SearchCommits: FunctionComponent = () => {
 						required
 					></input>
 					<button
-						className='border-2 m-2 p-2 rounded-md text-white bg-blue-500 active:bg-blue-600 hover:bg-blue-400 disabled:bg-slate-300 disabled:border-slate-300 disabled:text-slate-400'
+						className='border-2 m-2 p-2 rounded-md text-white bg-blue-500 active:bg-blue-600 hover:bg-blue-400 disabled:bg-slate-300 disabled:border-slate-300 disabled:text-slate-400 disabled:cursor-not-allowed'
 						type='submit'
-						disabled={disableSubmit}
+						disabled={!isValid()}
+						onClick={searchCommits}
 					>
 						Submit
 					</button>

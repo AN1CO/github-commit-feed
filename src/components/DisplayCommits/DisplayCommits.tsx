@@ -1,15 +1,20 @@
-import { render } from '@testing-library/react';
-import React, { FunctionComponent, useEffect, useState } from 'react';
+import { FunctionComponent, useEffect, useState } from 'react';
 import {
 	fetchCommits,
 	CommitProps,
 	OriginalCommitDataProps,
 } from '../../api/fetchCommits';
-import { useParams } from 'react-router-dom';
+import { useLocation } from 'react-router-dom';
 
-interface DisplayCommitsProps {}
+/**
+ * TODO: need to update the typing from 'any'
+ * to a typing that accepts the History type thats being passed
+ */
+const DisplayCommits: FunctionComponent<any> = () => {
+	const location = useLocation();
 
-const DisplayCommits: FunctionComponent = () => {
+	console.log('what is location', location);
+
 	const [allCommitData, setAllCommitData] = useState<CommitProps[]>([]);
 	const [visibleCommits, setVisibleCommits] = useState(5);
 
@@ -17,20 +22,16 @@ const DisplayCommits: FunctionComponent = () => {
 		setVisibleCommits((prevValue) => prevValue + 5);
 	};
 
-	// useEffect(() => {
-	// 	fetchCommits().then((res) => {
-	// 		console.log(res);
-	// 		res.map((item: OriginalCommitDataProps) => {
-	// 			setAllCommitData((prev) => [...prev, item.commit]);
-	// 		});
-	// 	});
-	// }, []);
+	useEffect(() => {
+		fetchCommits(location.pathname).then((res) => {
+			res.map((item: OriginalCommitDataProps) => {
+				setAllCommitData((prev) => [...prev, item.commit]);
+			});
+		});
+	}, [location]);
 
 	return (
 		<div className='p-2'>
-			<header className='p-2'>
-				<h1 className='text-3xl font-bold'>Github Commit Feed</h1>
-			</header>
 			<div className='container flex flex-col items-center'>
 				{/* TODO: make the repo source dynamic,
 				add a search repo function to reload other repos */}
