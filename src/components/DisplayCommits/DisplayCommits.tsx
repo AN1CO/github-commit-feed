@@ -4,45 +4,66 @@ import {
 	CommitProps,
 	OriginalCommitDataProps,
 } from '../../api/fetchCommits';
-import { useLocation } from 'react-router-dom';
+import { useLocation, useHistory } from 'react-router-dom';
 
 /**
  * TODO: need to update the typing from 'any'
- * to a typing that accepts the History type thats being passed
+ * to a typing that accepts the History type
+ * thats being passed in Route render
  */
 const DisplayCommits: FunctionComponent<any> = () => {
 	const location = useLocation();
-
-	console.log('what is location', location);
-
+	const history = useHistory();
 	const [allCommitData, setAllCommitData] = useState<CommitProps[]>([]);
 	const [visibleCommits, setVisibleCommits] = useState(5);
+	const [title, setTitle] = useState('');
+	const [apiError, setApiError] = useState(false);
 
 	const showMoreCommits = () => {
 		setVisibleCommits((prevValue) => prevValue + 5);
 	};
 
+	const handleBackToSearch = () => {
+		history.push('/');
+		//TODO: find an less hacky solution to this
+		window.location.reload();
+	};
+
 	useEffect(() => {
-		fetchCommits(location.pathname).then((res) => {
-			res.map((item: OriginalCommitDataProps) => {
-				setAllCommitData((prev) => [...prev, item.commit]);
+		fetchCommits(location.pathname)
+			.then((res) => {
+				res.map((item: OriginalCommitDataProps) => {
+					setAllCommitData((prev) => [...prev, item.commit]);
+				});
+			})
+			.catch((err) => {
+				if (err) {
+					setApiError(!apiError);
+				}
 			});
-		});
+		setTitle(location.pathname.substring(1));
 	}, [location]);
 
 	return (
 		<div className='p-2'>
 			<div className='container flex flex-col items-center'>
-				{/* TODO: make the repo source dynamic,
-				add a search repo function to reload other repos */}
-				<h3 className='text-xl p-2'>Showing results for m3db/m3</h3>
-				{allCommitData.length > 0 ? (
+				<h3 className='text-xl p-2'>Showing results for {title}</h3>
+				<button
+					onClick={handleBackToSearch}
+					className='rounded-md p-2 m-4 underline text-blue-500'
+				>
+					Back to Search
+				</button>
+				{apiError ? (
+					<p>No commits found.</p>
+				) : allCommitData.length > 0 ? (
 					allCommitData.slice(0, visibleCommits).map((item, index) => (
+						// TODO: turn this into a component too
 						<div
 							className='rounded-md border p-2 m-2 flex flex-row w-5/6 justify-between'
 							key={index}
 						>
-							{/* TODO: formate date to be legible */}
+							{/* TODO: format date to be legible */}
 							<p className='text-sm mr-4'>
 								{item.author.date.toLocaleString()}
 							</p>
@@ -63,9 +84,10 @@ const DisplayCommits: FunctionComponent<any> = () => {
 						</div>
 					))
 				) : (
-					<p>fetching feed</p>
+					<p>fetching feed...</p>
 				)}
-				{allCommitData.length === visibleCommits ? null : (
+				{allCommitData.length === visibleCommits ||
+				allCommitData.length === 0 ? null : (
 					<button
 						onClick={showMoreCommits}
 						className='rounded-md p-2 m-4 text-white bg-blue-500 active:bg-blue-600 hover:bg-blue-400'

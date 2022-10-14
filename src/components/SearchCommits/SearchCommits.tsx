@@ -24,8 +24,7 @@ const SearchCommits: FunctionComponent = () => {
 					<label htmlFor='user'>User: </label>
 					<input
 						className='border-2 m-2 p-2 rounded-md'
-						name='use'
-						id='use'
+						id='user'
 						type='text'
 						aria-label='search github user'
 						placeholder='Search User'
@@ -35,10 +34,8 @@ const SearchCommits: FunctionComponent = () => {
 						required
 					></input>
 					<label htmlFor='repo'>Repo: </label>
-
 					<input
 						className='border-2 m-2 p-2 rounded-md'
-						name='repo'
 						id='repo'
 						type='text'
 						aria-label='search github repo'
@@ -50,7 +47,6 @@ const SearchCommits: FunctionComponent = () => {
 					></input>
 					<button
 						className='border-2 m-2 p-2 rounded-md text-white bg-blue-500 active:bg-blue-600 hover:bg-blue-400 disabled:bg-slate-300 disabled:border-slate-300 disabled:text-slate-400 disabled:cursor-not-allowed'
-						type='submit'
 						disabled={!isValid()}
 						onClick={searchCommits}
 					>

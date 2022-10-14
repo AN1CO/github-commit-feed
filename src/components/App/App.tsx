@@ -12,10 +12,11 @@ const App: FunctionComponent = () => {
 			<Switch>
 				<Route exact path='/' component={SearchCommits} />
 				<Route
+					exact
 					path='/:user/:repo'
 					render={(props) => <DisplayCommits {...props} />}
 				/>
-				<Redirect to='/' />
+				<Redirect to='/does/not/exist' />
 			</Switch>
 		</div>
 	);
