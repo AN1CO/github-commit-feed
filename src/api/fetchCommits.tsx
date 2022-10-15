@@ -1,7 +1,4 @@
-const axios = require('axios').default;
-axios.defaults.baseURL = 'https://api.github.com';
-axios.defaults.headers.common['Authorization'] =
-	process.env.REACT_APP_API_TOKEN;
+import axios from 'axios';
 
 export interface CommitProps {
 	author: {
@@ -17,9 +14,14 @@ export interface OriginalCommitDataProps {
 	commit: CommitProps;
 }
 
+const instance = axios.create({
+	baseURL: 'https://api.github.com',
+	headers: { Authorization: process.env.REACT_APP_API_TOKEN },
+});
+
 export const fetchCommits = async (location: string) => {
 	try {
-		const res = await axios.get(`/repos${location}/commits`);
+		const res = await instance.get(`/repos${location}/commits`);
 		return res.data;
 	} catch (err: any) {
 		throw err.response.data;
