@@ -6,7 +6,8 @@ This project was bootstrapped with [Create React App](https://github.com/faceboo
 
 1. In the project directory, run `npm install`
 2. Create your own `.env` file and include the following variable: `REACT_APP_API_TOKEN`
-3. Create your personal access token here: https://docs.github.com/en/authentication/keeping-your-account-and-data-secure/creating-a-per sonal-access-token
+3. Create your personal access token here: https://docs.github.com/en/authentication/keeping-your-account-and-data-secure/creating-a-personal-access-token
+   
    Create a token with none of the scopes selected as you will not need any additional capabilities.
 
 ## Available Scripts
