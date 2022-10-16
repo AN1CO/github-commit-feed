@@ -1,4 +1,4 @@
-import axios from 'axios';
+import axios, { AxiosInstance } from 'axios';
 
 export interface CommitProps {
 	author: {
@@ -14,7 +14,7 @@ export interface OriginalCommitDataProps {
 	commit: CommitProps;
 }
 
-const instance = axios.create({
+const instance: AxiosInstance = axios.create({
 	baseURL: 'https://api.github.com',
 	headers: { Authorization: process.env.REACT_APP_API_TOKEN },
 });
